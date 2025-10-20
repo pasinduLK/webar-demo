@@ -2,39 +2,46 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-    <title>WebAR Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>WebAR Demo Fixed</title>
 
-    <!-- A-Frame (VR/3D framework) -->
+    <!-- A-Frame -->
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <!-- AR.js for A-Frame (marker-based AR) -->
+    <!-- AR.js for A-Frame -->
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@master/aframe/build/aframe-ar.js"></script>
 
     <style>
-      body { margin: 0; overflow: hidden; }
+      body { margin:0; overflow:hidden; }
       #hint {
-        position: absolute; left: 8px; top: 8px; z-index: 10;
-        background: rgba(0,0,0,0.4); color: white; padding: 6px 10px; border-radius: 6px;
+        position: absolute; left: 10px; top: 10px; z-index: 10;
+        background: rgba(0,0,0,0.5); color: white; padding: 6px 10px; border-radius: 6px;
         font-family: system-ui, Arial, sans-serif; font-size: 14px;
       }
     </style>
   </head>
   <body>
-    <div id="hint">Point camera at the Hiro marker (or printed image).</div>
+    <div id="hint">Point camera at the Hiro marker</div>
 
-    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;' vr-mode-ui="enabled: false">
-      <!-- Marker-based AR using the default 'hiro' preset -->
+    <a-scene 
+      embedded
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+      
+      <!-- Marker -->
       <a-marker preset="hiro">
-        <!-- Replace model.glb with your actual model filename -->
+
+        <!-- Fixed scale & position for mobile -->
         <a-entity 
           gltf-model="model.glb" 
-          scale="0.5 0.5 0.5" 
-          position="0 0 0"
+          scale="0.3 0.3 0.3"   <!-- smaller scale to appear in view -->
+          position="0 0 0" 
+          rotation="0 180 0"
           animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
         </a-entity>
+
       </a-marker>
 
-      <!-- A camera is required for A-Frame scenes -->
+      <!-- Camera -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
